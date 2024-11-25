@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { useLogin } from "@/features/auth/core/services/api/mutations.api";
 import type { TSignInFormData } from "@/features/auth/core/types";
 import { signInFormSchema } from "@/features/auth/core/validations";
 
@@ -24,9 +25,10 @@ const SignInForm = () => {
       password: "",
     },
   });
+  const { mutate } = useLogin();
 
   const onSubmit = (values: TSignInFormData) => {
-    console.log(values);
+    mutate(values);
   };
 
   return (
@@ -54,7 +56,11 @@ const SignInForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Enter password" {...field} />
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
