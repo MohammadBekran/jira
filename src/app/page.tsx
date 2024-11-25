@@ -1,26 +1,12 @@
-"use client";
+import UserButton from "@/components/user-button";
+import { protectRoute } from "@/core/actions";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
-import useCurrent from "@/features/auth/core/services/api/queries.api";
-import { useLogout } from "@/features/auth/core/services/api/mutations.api";
-import { Button } from "@/components/ui/button";
-
-const HomePage = () => {
-  const router = useRouter();
-  const { data, isLoading } = useCurrent();
-  const { mutate } = useLogout();
-
-  useEffect(() => {
-    if (!data && !isLoading) {
-      router.push("/sign-in");
-    }
-  }, [data, isLoading, router]);
+const HomePage = async () => {
+  await protectRoute("/sign-in", false);
 
   return (
     <div>
-      <Button onClick={mutate}>Logout</Button>
+      <UserButton />
     </div>
   );
 };

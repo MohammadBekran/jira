@@ -21,4 +21,4 @@ const useCurrent = () => {
   return query;
 };
 
-export default useCurrent;
+export { useCurrent };

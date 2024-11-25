@@ -1,7 +1,8 @@
-import { InferRequestType, InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { InferRequestType, InferResponseType } from "hono";
 
 import client from "@/lib/rpc";
+import { useRouter } from "next/navigation";
 
 type TLoginResponseType = InferResponseType<
   (typeof client.api.auth.login)["$post"]
@@ -25,11 +26,20 @@ type TLogoutRequestType = InferRequestType<
 >;
 
 const useLogin = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const mutation = useMutation<TLoginResponseType, Error, TLoginRequestType>({
     mutationFn: async (json) => {
       const response = await client.api.auth.login.$post({ json });
 
       return await response.json();
+    },
+    onSuccess: () => {
+      router.refresh();
+      queryClient.invalidateQueries({
+        queryKey: ["current"],
+      });
     },
   });
 
@@ -37,6 +47,9 @@ const useLogin = () => {
 };
 
 const useRegister = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const mutation = useMutation<
     TRegisterResponseType,
     Error,
@@ -47,12 +60,19 @@ const useRegister = () => {
 
       return await response.json();
     },
+    onSuccess: () => {
+      router.refresh();
+      queryClient.invalidateQueries({
+        queryKey: ["current"],
+      });
+    },
   });
 
   return mutation;
 };
 
 const useLogout = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const mutation = useMutation<TLogoutResponseType, Error, TLogoutRequestType>({
@@ -61,13 +81,15 @@ const useLogout = () => {
 
       return await response.json();
     },
-    onSuccess: () =>
+    onSuccess: () => {
+      router.refresh();
       queryClient.invalidateQueries({
         queryKey: ["current"],
-      }),
+      });
+    },
   });
 
   return mutation;
 };
 
-export { useLogin, useRegister, useLogout };
+export { useLogin, useLogout, useRegister };

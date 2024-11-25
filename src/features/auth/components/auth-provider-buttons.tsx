@@ -7,11 +7,11 @@ import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 import { Button } from "@/components/ui/button";
 
-const AuthProviderButtons = () => {
+const AuthProviderButtons = ({ disabled }: { disabled: boolean }) => {
   return (
     <>
       <Button
-        disabled={false}
+        disabled={disabled}
         variant="secondary"
         size="lg"
         className="w-full"
@@ -21,7 +21,7 @@ const AuthProviderButtons = () => {
         Login with Google
       </Button>
       <Button
-        disabled={false}
+        disabled={disabled}
         variant="secondary"
         size="lg"
         className="w-full"

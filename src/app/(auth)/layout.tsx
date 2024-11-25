@@ -18,13 +18,13 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           <Image src="/logo.svg" alt="logo" width={152} height={56} />
           <Button variant="secondary" asChild>
             <Link href={isSignInPath ? "/sign-up" : "/sign-in"}>
-              {isSignInPath ? "Sign up" : "Sign in"}
+              {isSignInPath ? "Sign Up" : "Sign In"}
             </Link>
           </Button>
         </nav>
-      </div>
-      <div className="flex flex-col justify-center items-center pt-4 md:pt-14">
-        {children}
+        <div className="flex flex-col justify-center items-center pt-4 md:pt-14">
+          {children}
+        </div>
       </div>
     </main>
   );

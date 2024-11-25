@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import AuthProviderButtons from "@/features/auth/components/sign-in/auth-provider-buttons";
 import SignInForm from "@/features/auth/components/sign-in/sign-in-form";
 
 import DottedSeparated from "@/components/dotted-separator";
@@ -15,15 +14,7 @@ const SignIn = () => {
       <div className="px-7">
         <DottedSeparated />
       </div>
-      <CardContent className="p-7">
-        <SignInForm />
-      </CardContent>
-      <div className="px-7">
-        <DottedSeparated />
-      </div>
-      <CardContent className="flex flex-col gap-y-4 p-7">
-        <AuthProviderButtons />
-      </CardContent>
+      <SignInForm />
       <div className="px-7">
         <DottedSeparated />
       </div>

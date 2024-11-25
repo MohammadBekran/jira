@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import AuthProviderButtons from "@/features/auth/components/sign-in/auth-provider-buttons";
 import SignUpForm from "@/features/auth/components/sign-up/sign-up-form";
 
 import DottedSeparated from "@/components/dotted-separator";
@@ -31,15 +30,7 @@ const SignUp = () => {
       <div className="px-7">
         <DottedSeparated />
       </div>
-      <CardContent className="p-7">
-        <SignUpForm />
-      </CardContent>
-      <div className="px-7">
-        <DottedSeparated />
-      </div>
-      <CardContent className="flex flex-col gap-y-4 p-7">
-        <AuthProviderButtons />
-      </CardContent>
+      <SignUpForm />
       <div className="px-7">
         <DottedSeparated />
       </div>

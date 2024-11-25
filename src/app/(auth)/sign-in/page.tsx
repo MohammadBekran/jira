@@ -1,6 +1,10 @@
 import SignIn from "@/features/auth/components/sign-in";
 
-const SignInPage = () => {
+import { protectRoute } from "@/core/actions";
+
+const SignInPage = async () => {
+  await protectRoute("/");
+
   return <SignIn />;
 };
 
