@@ -4,11 +4,7 @@ import { protectRoute } from "@/core/actions";
 const HomePage = async () => {
   await protectRoute("/sign-in", false);
 
-  return (
-    <div>
-      <UserButton />
-    </div>
-  );
+  return <div>This is home page</div>;
 };
 
 export default HomePage;
