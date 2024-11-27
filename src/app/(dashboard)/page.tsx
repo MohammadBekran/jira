@@ -1,15 +1,15 @@
-import CreateWorkspaceForm from "@/features/workspaces/components/create-workspace-form";
+import { getWorkspaces } from "@/features/workspaces/core/actions";
 
 import { protectRoute } from "@/core/actions";
+import { redirect } from "next/navigation";
 
 const HomePage = async () => {
   await protectRoute("/sign-in", false);
 
-  return (
-    <div>
-      <CreateWorkspaceForm />
-    </div>
-  );
+  const workspaces = await getWorkspaces();
+
+  if (workspaces.total === 0) redirect("/workspaces/create");
+  else redirect(`/workspaces/${workspaces.documents[0].$id}`);
 };
 
 export default HomePage;
