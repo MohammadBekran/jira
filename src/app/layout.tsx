@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import QueryProvider from "@/components/partials/providers/query-provider";
+import ToastProvider from "@/components/partials/providers/toast-provider";
 import { cn } from "@/lib/utils";
 
 import "./globals.css";
@@ -23,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "antialiased min-h-screen")}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ToastProvider />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

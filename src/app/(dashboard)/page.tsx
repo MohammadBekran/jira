@@ -1,10 +1,15 @@
-import UserButton from "@/components/user-button";
+import CreateWorkspaceForm from "@/features/workspaces/components/create-workspace-form";
+
 import { protectRoute } from "@/core/actions";
 
 const HomePage = async () => {
   await protectRoute("/sign-in", false);
 
-  return <div>This is home page</div>;
+  return (
+    <div>
+      <CreateWorkspaceForm />
+    </div>
+  );
 };
 
 export default HomePage;

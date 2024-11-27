@@ -31,7 +31,7 @@ const SignInForm = () => {
   const { mutate, isPending } = useLogin();
 
   const onSubmit = (values: TSignInFormData) => {
-    mutate(values);
+    mutate({ json: values });
   };
 
   return (

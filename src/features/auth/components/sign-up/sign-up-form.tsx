@@ -31,7 +31,7 @@ const SignUpForm = () => {
   const { mutate, isPending } = useRegister();
 
   const onSubmit = (values: TSignUpFormData) => {
-    mutate(values);
+    mutate({ json: values });
   };
 
   return (

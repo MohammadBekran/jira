@@ -1,22 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
+import { useRouter } from "next/navigation";
 
 import client from "@/lib/rpc";
-import { useRouter } from "next/navigation";
+import { toast } from "@/lib/utils";
 
 type TLoginResponseType = InferResponseType<
   (typeof client.api.auth.login)["$post"]
 >;
 type TLoginRequestType = InferRequestType<
   (typeof client.api.auth.login)["$post"]
->["json"];
+>;
 
 type TRegisterResponseType = InferResponseType<
   (typeof client.api.auth.register)["$post"]
 >;
 type TRegisterRequestType = InferRequestType<
   (typeof client.api.auth.register)["$post"]
->["json"];
+>;
 
 type TLogoutResponseType = InferResponseType<
   (typeof client.api.auth.logout)["$post"]
@@ -30,8 +31,10 @@ const useLogin = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<TLoginResponseType, Error, TLoginRequestType>({
-    mutationFn: async (json) => {
+    mutationFn: async ({ json }) => {
       const response = await client.api.auth.login.$post({ json });
+
+      if (!response.ok) throw new Error("Failed to log in");
 
       return await response.json();
     },
@@ -40,7 +43,10 @@ const useLogin = () => {
       queryClient.invalidateQueries({
         queryKey: ["current"],
       });
+
+      toast.success("Logged in");
     },
+    onError: () => toast.error("Something went wrong"),
   });
 
   return mutation;
@@ -55,8 +61,10 @@ const useRegister = () => {
     Error,
     TRegisterRequestType
   >({
-    mutationFn: async (json) => {
+    mutationFn: async ({ json }) => {
       const response = await client.api.auth.register.$post({ json });
+
+      if (!response.ok) throw new Error("Failed to register");
 
       return await response.json();
     },
@@ -65,7 +73,10 @@ const useRegister = () => {
       queryClient.invalidateQueries({
         queryKey: ["current"],
       });
+
+      toast.success("Registered");
     },
+    onError: () => toast.error("Something went wrong"),
   });
 
   return mutation;
@@ -79,6 +90,8 @@ const useLogout = () => {
     mutationFn: async () => {
       const response = await client.api.auth.logout.$post();
 
+      if (!response.ok) throw new Error("Failed to log out");
+
       return await response.json();
     },
     onSuccess: () => {
@@ -86,7 +99,10 @@ const useLogout = () => {
       queryClient.invalidateQueries({
         queryKey: ["current"],
       });
+
+      toast.success("Logged out");
     },
+    onError: () => toast.error("Something went wrong"),
   });
 
   return mutation;
