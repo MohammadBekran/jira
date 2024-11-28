@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import UpdateWorkspaceForm from "@/features/workspaces/components/update-workspace-form";
-import { getWorkspace } from "@/features/workspaces/core/actions";
+import { getWorkspace } from "@/features/workspaces/core/queries";
 
 import { protectRoute } from "@/core/actions";
 

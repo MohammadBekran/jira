@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import getCurrent from "@/features/auth/core/actions";
+import { getCurrent } from "@/features/auth/core/queries";
 
 export const protectRoute = async (
   redirectUrl: string,

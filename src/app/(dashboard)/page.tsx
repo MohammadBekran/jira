@@ -1,4 +1,4 @@
-import { getWorkspaces } from "@/features/workspaces/core/actions";
+import { getWorkspaces } from "@/features/workspaces/core/queries";
 
 import { protectRoute } from "@/core/actions";
 import { redirect } from "next/navigation";
