@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import WorkspaceSettings from "@/features/settings/components";
+import WorkspaceSettings from "@/features/workspaces/components/workspaceId/settings/components";
 import { getWorkspace } from "@/features/workspaces/core/queries";
 
 import { protectRoute } from "@/core/actions";

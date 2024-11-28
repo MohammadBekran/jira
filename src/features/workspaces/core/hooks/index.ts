@@ -7,6 +7,12 @@ const useWorkspaceId = () => {
   return params.workspaceId as string;
 };
 
+const useInviteCode = () => {
+  const params = useParams();
+
+  return params.inviteCode as string;
+};
+
 const useCreateWorkspaceModal = () => {
   const [isOpen, setIsOpen] = useQueryState(
     "create-workspace",
@@ -18,4 +24,5 @@ const useCreateWorkspaceModal = () => {
 
   return { isOpen, open, close, setIsOpen };
 };
-export { useWorkspaceId, useCreateWorkspaceModal };
+
+export { useWorkspaceId, useInviteCode, useCreateWorkspaceModal };

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import client from "@/lib/rpc";
 
-const useGetWorkspaces = () => {
+export const useGetWorkspaces = () => {
   const query = useQuery({
     queryKey: ["workspaces"],
     queryFn: async () => {
@@ -18,5 +18,3 @@ const useGetWorkspaces = () => {
 
   return query;
 };
-
-export { useGetWorkspaces };

@@ -1,6 +1,6 @@
 import { Loader } from "lucide-react";
 
-const Loading = () => {
+const LoadingPage = () => {
   return (
     <div className="h-full flex justify-center items-center">
       <Loader className="size-6 animate-spin text-muted-foreground" />
@@ -8,4 +8,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default LoadingPage;

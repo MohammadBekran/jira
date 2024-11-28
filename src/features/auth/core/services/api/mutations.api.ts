@@ -6,21 +6,24 @@ import client from "@/lib/rpc";
 import { toast } from "@/lib/utils";
 
 type TLoginResponseType = InferResponseType<
-  (typeof client.api.auth.login)["$post"]
+  (typeof client.api.auth.login)["$post"],
+  200
 >;
 type TLoginRequestType = InferRequestType<
   (typeof client.api.auth.login)["$post"]
 >;
 
 type TRegisterResponseType = InferResponseType<
-  (typeof client.api.auth.register)["$post"]
+  (typeof client.api.auth.register)["$post"],
+  200
 >;
 type TRegisterRequestType = InferRequestType<
   (typeof client.api.auth.register)["$post"]
 >;
 
 type TLogoutResponseType = InferResponseType<
-  (typeof client.api.auth.logout)["$post"]
+  (typeof client.api.auth.logout)["$post"],
+  200
 >;
 type TLogoutRequestType = InferRequestType<
   (typeof client.api.auth.logout)["$post"]
@@ -109,3 +112,4 @@ const useLogout = () => {
 };
 
 export { useLogin, useLogout, useRegister };
+

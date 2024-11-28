@@ -59,5 +59,22 @@ const getWorkspace = async ({ workspaceId }: { workspaceId: string }) => {
   }
 };
 
-export { getWorkspace, getWorkspaces };
+const getWorkspaceInfo = async ({ workspaceId }: { workspaceId: string }) => {
+  try {
+    const { databases } = await createSessionClient();
 
+    const workspace = await databases.getDocument<TWorkspace>(
+      DATABASE_ID,
+      WORKSPACES_ID,
+      workspaceId
+    );
+
+    return {
+      name: workspace.name,
+    };
+  } catch {
+    return null;
+  }
+};
+
+export { getWorkspace, getWorkspaceInfo, getWorkspaces };
