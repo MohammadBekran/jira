@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const createWorkspaceSchema = z.object({
+const createProjectSchema = z.object({
   name: z.string().trim().min(1, "Required"),
   image: z
     .union([
@@ -8,9 +8,10 @@ const createWorkspaceSchema = z.object({
       z.string().transform((value) => (value === "" ? undefined : value)),
     ])
     .optional(),
+  workspaceId: z.string(),
 });
 
-const updateWorkspaceSchema = z.object({
+const updateProjectSchema = z.object({
   name: z.string().trim().min(1, "Must be 1 or more characters").optional(),
   image: z
     .union([
@@ -20,4 +21,4 @@ const updateWorkspaceSchema = z.object({
     .optional(),
 });
 
-export { createWorkspaceSchema, updateWorkspaceSchema };
+export { createProjectSchema, updateProjectSchema };
