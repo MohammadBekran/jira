@@ -46,7 +46,7 @@ const useLogin = () => {
         queryKey: ["current"],
       });
     },
-    onError: () => toast.error("Something went wrong"),
+    onError: () => toast.error("Failed to log in"),
   });
 
   return mutation;
@@ -76,7 +76,7 @@ const useRegister = () => {
         queryKey: ["current"],
       });
     },
-    onError: () => toast.error("Something went wrong"),
+    onError: () => toast.error("Failed to register"),
   });
 
   return mutation;
@@ -102,7 +102,7 @@ const useLogout = () => {
         queryKey: ["current"],
       });
     },
-    onError: () => toast.error("Something went wrong"),
+    onError: () => toast.error("Failed to log out"),
   });
 
   return mutation;

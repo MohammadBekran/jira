@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import UpdateWorkspaceForm from "@/features/workspaces/components/update-workspace-form";
+import WorkspaceSettings from "@/features/settings/components";
 import { getWorkspace } from "@/features/workspaces/core/queries";
 
 import { protectRoute } from "@/core/actions";
@@ -16,11 +16,7 @@ const WorkspaceSettingsPage = async ({
 
   if (!workspace) redirect(`/workspaces/${params.workspaceId}`);
 
-  return (
-    <div className="w-full lg:max-w-xl">
-      <UpdateWorkspaceForm initialValues={workspace} />
-    </div>
-  );
+  return <WorkspaceSettings workspace={workspace} />;
 };
 
 export default WorkspaceSettingsPage;
