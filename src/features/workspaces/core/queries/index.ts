@@ -34,47 +34,39 @@ const getWorkspaces = async () => {
 };
 
 const getWorkspace = async ({ workspaceId }: { workspaceId: string }) => {
-  try {
-    const { databases, account } = await createSessionClient();
+  const { databases, account } = await createSessionClient();
 
-    const user = await account.get();
+  const user = await account.get();
 
-    const member = await getMember({
-      databases,
-      workspaceId,
-      userId: user.$id,
-    });
+  const member = await getMember({
+    databases,
+    workspaceId,
+    userId: user.$id,
+  });
 
-    if (!member) return null;
+  if (!member) throw new Error("Unauthorized");
 
-    const workspace = await databases.getDocument<TWorkspace>(
-      DATABASE_ID,
-      WORKSPACES_ID,
-      workspaceId
-    );
+  const workspace = await databases.getDocument<TWorkspace>(
+    DATABASE_ID,
+    WORKSPACES_ID,
+    workspaceId
+  );
 
-    return workspace;
-  } catch {
-    return null;
-  }
+  return workspace;
 };
 
 const getWorkspaceInfo = async ({ workspaceId }: { workspaceId: string }) => {
-  try {
-    const { databases } = await createSessionClient();
+  const { databases } = await createSessionClient();
 
-    const workspace = await databases.getDocument<TWorkspace>(
-      DATABASE_ID,
-      WORKSPACES_ID,
-      workspaceId
-    );
+  const workspace = await databases.getDocument<TWorkspace>(
+    DATABASE_ID,
+    WORKSPACES_ID,
+    workspaceId
+  );
 
-    return {
-      name: workspace.name,
-    };
-  } catch {
-    return null;
-  }
+  return {
+    name: workspace.name,
+  };
 };
 
 export { getWorkspace, getWorkspaceInfo, getWorkspaces };

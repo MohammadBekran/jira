@@ -31,7 +31,7 @@ const Projects = () => {
         const isActive = pathname === href;
 
         return (
-          <Link key={project.$id} href={`/projects/${project.$id}`}>
+          <Link key={project.$id} href={href}>
             <div
               className={cn(
                 "flex items-center rounded-md gap-2.5 p-2.5 transition cursor-pointer font-medium text-neutral-500 hover:opacity-75",
