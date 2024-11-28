@@ -39,12 +39,12 @@ const useLogin = () => {
       return await response.json();
     },
     onSuccess: () => {
+      toast.success("Logged in");
+
       router.refresh();
       queryClient.invalidateQueries({
         queryKey: ["current"],
       });
-
-      toast.success("Logged in");
     },
     onError: () => toast.error("Something went wrong"),
   });
@@ -69,12 +69,12 @@ const useRegister = () => {
       return await response.json();
     },
     onSuccess: () => {
+      toast.success("Registered");
+
       router.refresh();
       queryClient.invalidateQueries({
         queryKey: ["current"],
       });
-
-      toast.success("Registered");
     },
     onError: () => toast.error("Something went wrong"),
   });
@@ -95,12 +95,12 @@ const useLogout = () => {
       return await response.json();
     },
     onSuccess: () => {
+      toast.success("Logged out");
+
       router.refresh();
       queryClient.invalidateQueries({
         queryKey: ["current"],
       });
-
-      toast.success("Logged out");
     },
     onError: () => toast.error("Something went wrong"),
   });

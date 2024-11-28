@@ -1,14 +1,17 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
-import { useCreateWorkspace } from "@/features/workspaces/core/services/api/mutations.api";
-import type { TCreateWorkspaceFormData } from "@/features/workspaces/core/types";
+import { useUpdateWorkspace } from "@/features/workspaces/core/services/api/mutations.api";
+import type {
+  TUpdateWorkspaceFormData,
+  TWorkspace,
+} from "@/features/workspaces/core/types";
 import { createWorkspaceSchema } from "@/features/workspaces/core/validations";
 
 import DottedSeparated from "@/components/dotted-separator";
@@ -26,17 +29,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-const CreateWorkspaceForm = ({ onCancel }: { onCancel?: () => void }) => {
+interface IUpdateWorkspaceFormProps {
+  onCancel?: () => void;
+  initialValues: TWorkspace;
+}
+
+const UpdateWorkspaceForm = ({
+  onCancel,
+  initialValues,
+}: IUpdateWorkspaceFormProps) => {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const form = useForm<TCreateWorkspaceFormData>({
+  const form = useForm<TUpdateWorkspaceFormData>({
     resolver: zodResolver(createWorkspaceSchema),
     defaultValues: {
-      name: "",
-      image: "",
+      ...initialValues,
+      image: initialValues.imageUrl ?? "",
     },
   });
-  const { mutate, isPending } = useCreateWorkspace();
+  const { mutate, isPending } = useUpdateWorkspace();
+
+  const handleBack = () =>
+    onCancel ? onCancel : router.push(`/workspaces/${initialValues.$id}`);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -52,14 +66,17 @@ const CreateWorkspaceForm = ({ onCancel }: { onCancel?: () => void }) => {
     if (inputRef.current) inputRef.current.value = "";
   };
 
-  const onSubmit = (values: TCreateWorkspaceFormData) => {
+  const onSubmit = (values: TUpdateWorkspaceFormData) => {
     const finalValues = {
       ...values,
       image: values.image instanceof File ? values.image : "",
     };
 
     mutate(
-      { form: finalValues },
+      {
+        form: finalValues,
+        param: { workspaceId: initialValues.$id },
+      },
       {
         onSuccess: ({ data }) => {
           form.reset();
@@ -71,9 +88,13 @@ const CreateWorkspaceForm = ({ onCancel }: { onCancel?: () => void }) => {
 
   return (
     <Card className="size-full border-none shadow-none">
-      <CardHeader className="flex p-7">
+      <CardHeader className="flex flex-row items-center gap-x-4 space-y-0 p-7">
+        <Button size="sm" variant="secondary" onClick={handleBack}>
+          <ArrowLeftIcon className="size-4" />
+          Back
+        </Button>
         <CardTitle className="text-xl font-bold">
-          Create a new workspace
+          {initialValues.name}
         </CardTitle>
       </CardHeader>
       <div className="px-7">
@@ -179,7 +200,7 @@ const CreateWorkspaceForm = ({ onCancel }: { onCancel?: () => void }) => {
                 Cancel
               </Button>
               <Button type="submit" disabled={isPending} size="lg">
-                Create Workspace
+                Save Changes
               </Button>
             </div>
           </form>
@@ -189,4 +210,4 @@ const CreateWorkspaceForm = ({ onCancel }: { onCancel?: () => void }) => {
   );
 };
 
-export default CreateWorkspaceForm;
+export default UpdateWorkspaceForm;
