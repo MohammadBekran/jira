@@ -27,6 +27,15 @@ const useCreateTaskModal = () => {
   return { isOpen, open, close, setIsOpen };
 };
 
+const useUpdateTaskModal = () => {
+  const [taskId, setTaskId] = useQueryState("update-task", parseAsString);
+
+  const open = (id: string) => setTaskId(id);
+  const close = () => setTaskId(null);
+
+  return { taskId, open, close, setTaskId };
+};
+
 const useTaskView = () => {
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
@@ -45,4 +54,10 @@ const useTaskFilters = () => {
   });
 };
 
-export { useTaskId, useCreateTaskModal, useTaskView, useTaskFilters };
+export {
+  useTaskId,
+  useCreateTaskModal,
+  useUpdateTaskModal,
+  useTaskView,
+  useTaskFilters,
+};

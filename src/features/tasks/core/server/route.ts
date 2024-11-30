@@ -4,9 +4,10 @@ import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 
 import { getMember } from "@/features/members/core/utils";
+import type { TProject } from "@/features/projects/core/types";
 import { ETaskStatus } from "@/features/tasks/core/enum";
+import type { TTask } from "@/features/tasks/core/types";
 import { createTaskSchema } from "@/features/tasks/core/validations";
-import { TProject } from "@/features/projects/core/types";
 
 import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/core/configs";
 import { createAdminClient } from "@/lib/appwrite";
@@ -53,7 +54,11 @@ const app = new Hono()
       if (dueDate) query.push(Query.equal("dueDate", dueDate));
       if (search) query.push(Query.equal("name", search));
 
-      const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);
+      const tasks = await databases.listDocuments<TTask>(
+        DATABASE_ID,
+        TASKS_ID,
+        query
+      );
       const projectIds = tasks.documents.map((task) => task.projectId);
       const assigneeIds = tasks.documents.map((task) => task.assigneeId);
 
@@ -164,6 +169,27 @@ const app = new Hono()
 
       return c.json({ data: task });
     }
-  );
+  )
+  .delete("/:taskId", sessionMiddleware, async (c) => {
+    const databases = c.get("databases");
+    const user = c.get("user");
+
+    const { taskId } = c.req.param();
+
+    const task = await databases.getDocument(DATABASE_ID, TASKS_ID, taskId);
+
+    if (!task) return c.json({ error: "Invalid task" }, 400);
+
+    const member = await getMember({
+      databases,
+      workspaceId: task.workspaceId,
+      userId: user.$id,
+    });
+    if (!member) return c.json({ error: "Unauthorized" }, 401);
+
+    await databases.deleteDocument(DATABASE_ID, TASKS_ID, task.$id);
+
+    return c.json({ data: { $id: task.$id } });
+  });
 
 export default app;

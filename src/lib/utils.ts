@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
 import { toast } from "sonner";
+import { twMerge } from "tailwind-merge";
 
 const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -18,4 +18,11 @@ const generateInviteCode = (length: number) => {
   return result;
 };
 
-export { cn, generateInviteCode, toast };
+const snakeCaseToTitleCase = (str: string) => {
+  return str
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+export { cn, generateInviteCode, snakeCaseToTitleCase, toast };

@@ -9,7 +9,9 @@ import {
   useTaskView,
 } from "@/features/tasks/core/hooks";
 import { useGetTasks } from "@/features/tasks/core/services/api/queries.api";
+import DataTable from "@/features/tasks/components/data-table";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
+import { TASK_COLUMNS } from "@/features/tasks/core/constants";
 
 import DottedSeparated from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
@@ -62,7 +64,7 @@ const TasksViewSwitcher = () => {
         ) : (
           <>
             <TabsContent value="table" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataTable columns={TASK_COLUMNS} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
               {JSON.stringify(tasks)}

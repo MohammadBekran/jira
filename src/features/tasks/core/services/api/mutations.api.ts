@@ -12,7 +12,15 @@ type TCreateTaskRequestType = InferRequestType<
   (typeof client.api.tasks)["$post"]
 >;
 
-export const useCreateTask = () => {
+type TDeleteTaskResponseType = InferResponseType<
+  (typeof client.api.tasks)[":taskId"]["$delete"],
+  200
+>;
+type TDeleteTaskRequestType = InferRequestType<
+  (typeof client.api.tasks)[":taskId"]["$delete"]
+>;
+
+const useCreateTask = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<
@@ -39,3 +47,36 @@ export const useCreateTask = () => {
 
   return mutation;
 };
+
+const useDeleteTask = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<
+    TDeleteTaskResponseType,
+    Error,
+    TDeleteTaskRequestType
+  >({
+    mutationFn: async ({ param }) => {
+      const response = await client.api.tasks[":taskId"]["$delete"]({ param });
+
+      if (!response.ok) throw new Error("Failed to delete task");
+
+      return await response.json();
+    },
+    onSuccess: ({ data }) => {
+      toast.success("Task deleted");
+
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["task", data.$id],
+      });
+    },
+    onError: () => toast.error("Failed to create task"),
+  });
+
+  return mutation;
+};
+
+export { useCreateTask, useDeleteTask };
