@@ -6,7 +6,9 @@ import { protectRoute } from "@/core/actions";
 const ProjectPage = async ({ params }: { params: { projectId: string } }) => {
   await protectRoute("/sign-in", false);
 
-  const project = await getProject({ projectId: params.projectId });
+  const { projectId } = await params;
+
+  const project = await getProject({ projectId });
 
   if (!project) throw new Error("Project not found.");
 

@@ -1,5 +1,13 @@
 import { useParams } from "next/navigation";
-import { parseAsBoolean, useQueryState } from "nuqs";
+import {
+  parseAsBoolean,
+  parseAsString,
+  parseAsStringEnum,
+  useQueryState,
+  useQueryStates,
+} from "nuqs";
+
+import { ETaskStatus } from "@/features/tasks/core/enum";
 
 const useTaskId = () => {
   const params = useParams();
@@ -19,4 +27,22 @@ const useCreateTaskModal = () => {
   return { isOpen, open, close, setIsOpen };
 };
 
-export { useCreateTaskModal, useTaskId };
+const useTaskView = () => {
+  const [view, setView] = useQueryState("task-view", {
+    defaultValue: "table",
+  });
+
+  return { view, setView };
+};
+
+const useTaskFilters = () => {
+  return useQueryStates({
+    projectId: parseAsString,
+    status: parseAsStringEnum(Object.values(ETaskStatus)),
+    search: parseAsString,
+    dueDate: parseAsString,
+    assigneeId: parseAsString,
+  });
+};
+
+export { useTaskId, useCreateTaskModal, useTaskView, useTaskFilters };
