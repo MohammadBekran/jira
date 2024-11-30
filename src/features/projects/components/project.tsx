@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import ProjectAvatar from "@/features/projects/components/project-avatar";
 import { TProject } from "@/features/projects/core/types";
+import TasksViewSwitcher from "@/features/tasks/components/tasks-view-switcher";
 
 import { Button } from "@/components/ui/button";
 
@@ -29,6 +30,7 @@ const Project = ({ project }: { project: TProject }) => {
           </Button>
         </div>
       </div>
+      <TasksViewSwitcher />
     </div>
   );
 };
