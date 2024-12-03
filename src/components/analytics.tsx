@@ -22,7 +22,7 @@ const Analytics = ({ data }: TProjectAnalyticsResponseType) => {
               variant={analyticsItem.variant}
               increaseValue={analyticsItem.increaseValue}
             />
-            <DottedSeparator direction="vertical" />
+            {index < 4 && <DottedSeparator direction="vertical" />}
           </div>
         ))}
       </div>

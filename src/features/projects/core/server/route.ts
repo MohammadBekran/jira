@@ -4,13 +4,14 @@ import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 
-import MemberRole from "@/features/members/core/enum/member-role.enum";
+import { TMemberRole } from "@/features/members/core/enum";
 import { getMember } from "@/features/members/core/utils";
 import type { TProject } from "@/features/projects/core/types";
 import {
   createProjectSchema,
   updateProjectSchema,
 } from "@/features/projects/core/validations";
+import { ETaskStatus } from "@/features/tasks/core/enum";
 
 import {
   DATABASE_ID,
@@ -18,7 +19,6 @@ import {
   PROJECTS_ID,
   TASKS_ID,
 } from "@/core/configs";
-import { ETaskStatus } from "@/features/tasks/core/enum";
 import sessionMiddleware from "@/lib/session-middleware";
 
 const app = new Hono()
@@ -94,10 +94,11 @@ const app = new Hono()
 
       if (!member) return c.json({ error: "Unauthorized" }, 401);
 
-      const projects = await databases.listDocuments(DATABASE_ID, PROJECTS_ID, [
-        Query.equal("workspaceId", workspaceId),
-        Query.orderDesc("$createdAt"),
-      ]);
+      const projects = await databases.listDocuments<TProject>(
+        DATABASE_ID,
+        PROJECTS_ID,
+        [Query.equal("workspaceId", workspaceId), Query.orderDesc("$createdAt")]
+      );
 
       return c.json({ data: projects });
     }
@@ -155,7 +156,7 @@ const app = new Hono()
         userId: user.$id,
       });
 
-      if (!member || member.role !== MemberRole.ADMIN) {
+      if (!member || member.role !== TMemberRole.ADMIN) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 

@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { Query } from "node-appwrite";
 import { z } from "zod";
 
-import MemberRole from "@/features/members/core/enum/member-role.enum";
+import { TMemberRole } from "@/features/members/core/enum";
 import type { TMember } from "@/features/members/core/types";
 import { getMember } from "@/features/members/core/utils";
 
@@ -78,7 +78,10 @@ const app = new Hono()
 
     if (!member) return c.json({ error: "Unauthorized" }, 401);
 
-    if (member.$id !== memberToDelete.$id && member.role !== MemberRole.ADMIN) {
+    if (
+      member.$id !== memberToDelete.$id &&
+      member.role !== TMemberRole.ADMIN
+    ) {
       return c.json({ error: "Unauthorized" }, 401);
     }
 
@@ -92,7 +95,7 @@ const app = new Hono()
   .patch(
     "/:memberId",
     sessionMiddleware,
-    zValidator("json", z.object({ role: z.nativeEnum(MemberRole) })),
+    zValidator("json", z.object({ role: z.nativeEnum(TMemberRole) })),
     async (c) => {
       const databases = c.get("databases");
       const user = c.get("user");
@@ -121,7 +124,7 @@ const app = new Hono()
 
       if (
         member.id === memberToUpdate.$id &&
-        member.role !== MemberRole.ADMIN
+        member.role !== TMemberRole.ADMIN
       ) {
         return c.json({ error: "Unauthorized" }, 401);
       }

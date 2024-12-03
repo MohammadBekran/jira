@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 import MemberAvatar from "@/features/members/components/member-avatar";
-import MemberRole from "@/features/members/core/enum/member-role.enum";
+import { TMemberRole } from "@/features/members/core/enum";
 import {
   useDeleteMember,
   useUpdateMember,
@@ -38,7 +38,7 @@ const MembersList = () => {
   const { mutate: updateMember, isPending: isUpdatingMember } =
     useUpdateMember();
 
-  const handleUpdateMember = (memberId: string, role: MemberRole) => {
+  const handleUpdateMember = (memberId: string, role: TMemberRole) => {
     updateMember({
       param: { memberId },
       json: { role },
@@ -98,7 +98,7 @@ const MembersList = () => {
                     disabled={isUpdatingMember}
                     className="font-medium"
                     onClick={() =>
-                      handleUpdateMember(member.$id, MemberRole.ADMIN)
+                      handleUpdateMember(member.$id, TMemberRole.ADMIN)
                     }
                   >
                     Set as Administrator
@@ -107,7 +107,7 @@ const MembersList = () => {
                     disabled={isUpdatingMember}
                     className="font-medium"
                     onClick={() =>
-                      handleUpdateMember(member.$id, MemberRole.MEMBER)
+                      handleUpdateMember(member.$id, TMemberRole.MEMBER)
                     }
                   >
                     Set as Member
