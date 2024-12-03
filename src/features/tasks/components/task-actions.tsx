@@ -58,11 +58,11 @@ const TaskActions = ({ id, projectId, children }: ITaskActionsProps) => {
             />
             Task Details
           </DropdownMenuItem>
-          <DropdownMenuItem className="font-medium p-[10px]">
-            <ExternalLinkIcon
-              className="size-4 stroke-2 mr-2"
-              onClick={onOpenProject}
-            />
+          <DropdownMenuItem
+            className="font-medium p-[10px]"
+            onClick={onOpenProject}
+          >
+            <ExternalLinkIcon className="size-4 stroke-2 mr-2" />
             Open Project
           </DropdownMenuItem>
           <DropdownMenuItem

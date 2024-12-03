@@ -21,7 +21,11 @@ import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 import DottedSeparated from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 
-const TasksViewSwitcher = () => {
+const TasksViewSwitcher = ({
+  hideProjectFilters,
+}: {
+  hideProjectFilters?: boolean;
+}) => {
   const [{ projectId, status, dueDate, assigneeId }] = useTaskFilters();
   const workspaceId = useWorkspaceId();
   const { setStatus } = useCreateTaskModal();
@@ -68,7 +72,7 @@ const TasksViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparated className="my-4" />
-        <DataFilters />
+        <DataFilters hideProjectFilters={hideProjectFilters} />
         <DottedSeparated className="my-4" />
         {isLoadingTasks ? (
           <div className="w-full h-[200px] flex flex-col justify-center items-center rounded-lg border">
