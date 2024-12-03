@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import WorkspaceSettings from "@/features/workspaces/components/workspaceId/settings/components";
@@ -8,15 +9,22 @@ import { protectRoute } from "@/core/actions";
 const WorkspaceSettingsPage = async ({
   params,
 }: {
-  params: { workspaceId: string };
+  params: Promise<{ workspaceId: string }>;
 }) => {
   await protectRoute("/sign-in", false);
 
-  const workspace = await getWorkspace({ workspaceId: params.workspaceId });
+  const { workspaceId } = await params;
 
-  if (!workspace) redirect(`/workspaces/${params.workspaceId}`);
+  const workspace = await getWorkspace({ workspaceId });
+
+  if (!workspace) redirect(`/workspaces/${workspaceId}`);
 
   return <WorkspaceSettings workspace={workspace} />;
+};
+
+export const metadata: Metadata = {
+  title: "Settings",
+  description: "update workspace settings",
 };
 
 export default WorkspaceSettingsPage;

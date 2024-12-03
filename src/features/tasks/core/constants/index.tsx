@@ -137,7 +137,7 @@ const TASK_COLUMNS: ColumnDef<TTask>[] = [
     },
   },
   {
-    accessorKey: "actions",
+    id: "actions",
     cell: ({ row }) => {
       const id = row.original.$id;
       const projectId = row.original.projectId;

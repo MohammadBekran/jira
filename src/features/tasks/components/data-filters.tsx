@@ -70,7 +70,7 @@ const DataFilters = ({
       >
         <SelectTrigger className="w-full h-8 lg:w-auto">
           <div className="flex items-center pr-2">
-            <ListChecksIcon className="size-4 " />
+            <ListChecksIcon className="size-4 mr-2" />
             <SelectValue placeholder="All statuses" />
           </div>
         </SelectTrigger>
@@ -90,7 +90,7 @@ const DataFilters = ({
       >
         <SelectTrigger className="w-full h-8 lg:w-auto">
           <div className="flex items-center pr-2">
-            <UserIcon className="size-4 " />
+            <UserIcon className="size-4 mr-2" />
             <SelectValue placeholder="All assignees" />
           </div>
         </SelectTrigger>
@@ -111,7 +111,7 @@ const DataFilters = ({
         >
           <SelectTrigger className="w-full h-8 lg:w-auto">
             <div className="flex items-center pr-2">
-              <UserIcon className="size-4 " />
+              <UserIcon className="size-4 mr-2" />
               <SelectValue placeholder="All projects" />
             </div>
           </SelectTrigger>

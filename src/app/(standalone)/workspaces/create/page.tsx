@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import CreateWorkspaceForm from "@/features/workspaces/components/create-workspace-form";
 
 import { protectRoute } from "@/core/actions";
@@ -10,6 +12,11 @@ const CreateWorkspacePage = async () => {
       <CreateWorkspaceForm />
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Create workspace",
+  description: "Create a new workspace",
 };
 
 export default CreateWorkspacePage;

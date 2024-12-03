@@ -35,6 +35,24 @@ const NAVIGATION_ROUTES = [
   },
 ] as const;
 
+const NAVIGATION_PAGE_INFORMATION = [
+  {
+    path: "/tasks",
+    title: "Tasks",
+    description: "View all of your tasks here",
+  },
+  {
+    path: "/projects",
+    title: "My Project",
+    description: "View tasks of your project here",
+  },
+  {
+    path: "",
+    title: "Home",
+    description: "Monitor all of your projects and tasks here",
+  },
+] as const;
+
 const ANALYTICS_ITEMS = ({ data }: TProjectAnalyticsResponseType) =>
   [
     {
@@ -69,4 +87,4 @@ const ANALYTICS_ITEMS = ({ data }: TProjectAnalyticsResponseType) =>
     },
   ] as const;
 
-export { ANALYTICS_ITEMS, NAVIGATION_ROUTES };
+export { ANALYTICS_ITEMS, NAVIGATION_PAGE_INFORMATION, NAVIGATION_ROUTES };
