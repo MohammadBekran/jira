@@ -17,7 +17,7 @@ const AuthProviderButtons = ({ disabled }: { disabled: boolean }) => {
         className="w-full"
         onClick={signUpWithGoogle}
       >
-        <FcGoogle className="size-5 mr-2" />
+        <FcGoogle className="size-5 " />
         Login with Google
       </Button>
       <Button
@@ -27,7 +27,7 @@ const AuthProviderButtons = ({ disabled }: { disabled: boolean }) => {
         className="w-full"
         onClick={signUpWithGithub}
       >
-        <FaGithub className="size-5 mr-2" />
+        <FaGithub className="size-5 " />
         Login with Github
       </Button>
     </>

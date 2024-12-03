@@ -8,7 +8,7 @@ import { useLogin } from "@/features/auth/core/services/api/mutations.api";
 import type { TSignInFormData } from "@/features/auth/core/types";
 import { signInFormSchema } from "@/features/auth/core/validations";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import {
@@ -83,7 +83,7 @@ const SignInForm = () => {
         </Form>
       </CardContent>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="flex flex-col gap-y-4 p-7">
         <AuthProviderButtons disabled={isPending} />

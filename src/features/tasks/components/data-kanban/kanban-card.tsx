@@ -6,7 +6,7 @@ import TaskActions from "@/features/tasks/components/task-actions";
 import TaskDate from "@/features/tasks/components/task-date";
 import type { TTask } from "@/features/tasks/core/types";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 
 const KanbanCard = ({ task }: { task: TTask }) => {
   return (
@@ -17,7 +17,7 @@ const KanbanCard = ({ task }: { task: TTask }) => {
           <MoreHorizontal className="size-[18px] stroke-1 shrink-0 transition text-neutral-700 hover:opacity-75" />
         </TaskActions>
       </div>
-      <DottedSeparated />
+      <DottedSeparator />
       <div className="flex items-center gap-x-1.5">
         <MemberAvatar
           name={task.assignee.name}

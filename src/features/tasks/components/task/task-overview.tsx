@@ -6,7 +6,7 @@ import OverviewProperty from "@/features/tasks/components/task/overview-property
 import { useUpdateTaskModal } from "@/features/tasks/core/hooks";
 import type { TTask } from "@/features/tasks/core/types";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { snakeCaseToTitleCase } from "@/lib/utils";
@@ -27,7 +27,7 @@ const TaskOverview = ({ data }: { data: TTask }) => {
             Edit
           </Button>
         </div>
-        <DottedSeparated className="my-4" />
+        <DottedSeparator className="my-4" />
         <div className="space-y-4">
           <OverviewProperty label="Assignee">
             <MemberAvatar name={assigneeName} className="size-6" />

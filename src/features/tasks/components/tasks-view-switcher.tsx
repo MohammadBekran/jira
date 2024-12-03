@@ -18,7 +18,7 @@ import { useGetTasks } from "@/features/tasks/core/services/api/queries.api";
 import type { TUpdateBulkOnchangeTask } from "@/features/tasks/core/types";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 
 const TasksViewSwitcher = ({
@@ -67,13 +67,13 @@ const TasksViewSwitcher = ({
             className="w-full lg:w-auto"
             onClick={() => setStatus(status ?? "true")}
           >
-            <PlusIcon className="size-4 mr-2" />
+            <PlusIcon className="size-4 " />
             New
           </Button>
         </div>
-        <DottedSeparated className="my-4" />
+        <DottedSeparator className="my-4" />
         <DataFilters hideProjectFilters={hideProjectFilters} />
-        <DottedSeparated className="my-4" />
+        <DottedSeparator className="my-4" />
         {isLoadingTasks ? (
           <div className="w-full h-[200px] flex flex-col justify-center items-center rounded-lg border">
             <Loader className="size-5 animate-spin text-muted-foreground" />

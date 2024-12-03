@@ -53,7 +53,7 @@ const TaskActions = ({ id, projectId, children }: ITaskActionsProps) => {
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem className="font-medium p-[10px]">
             <ExternalLinkIcon
-              className="size-4 stroke-2 mr-2"
+              className="size-4 stroke-2 "
               onClick={onOpenTask}
             />
             Task Details
@@ -62,21 +62,21 @@ const TaskActions = ({ id, projectId, children }: ITaskActionsProps) => {
             className="font-medium p-[10px]"
             onClick={onOpenProject}
           >
-            <ExternalLinkIcon className="size-4 stroke-2 mr-2" />
+            <ExternalLinkIcon className="size-4 stroke-2 " />
             Open Project
           </DropdownMenuItem>
           <DropdownMenuItem
             className="font-medium p-[10px]"
             onClick={() => open(id)}
           >
-            <PencilIcon className="size-4 stroke-2 mr-2" />
+            <PencilIcon className="size-4 stroke-2 " />
             Edit Task
           </DropdownMenuItem>
           <DropdownMenuItem
             className="font-medium p-[10px] text-amber-700 focus:tet-amber-700"
             onClick={onDelete}
           >
-            <TrashIcon className="size-4 stroke-2 mr-2" />
+            <TrashIcon className="size-4 stroke-2 " />
             Delete Task
           </DropdownMenuItem>
         </DropdownMenuContent>

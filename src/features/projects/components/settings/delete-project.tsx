@@ -1,6 +1,6 @@
 import { useDeleteProject } from "@/features/projects/core/services/api/mutations.api";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useConfirm } from "@/core/hooks";
@@ -46,7 +46,7 @@ const DeleteProject = ({ projectId, isPending }: IDeleteProjectProps) => {
               Deleting a project is irreversible and will remove all associated
               data.
             </p>
-            <DottedSeparated className="py-7" />
+            <DottedSeparator className="py-7" />
             <Button
               type="button"
               disabled={isPending || isDeletingProject}

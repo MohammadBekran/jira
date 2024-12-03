@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import SignUpForm from "@/features/auth/components/sign-up/sign-up-form";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import {
   Card,
   CardContent,
@@ -28,11 +28,11 @@ const SignUp = () => {
         </CardDescription>
       </CardHeader>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <SignUpForm />
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="flex justify-center items-center p-7">
         <p className="text-center">

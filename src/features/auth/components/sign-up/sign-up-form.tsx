@@ -8,7 +8,7 @@ import { useRegister } from "@/features/auth/core/services/api/mutations.api";
 import type { TSignUpFormData } from "@/features/auth/core/types";
 import { signUpFormSchema } from "@/features/auth/core/validations";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import {
@@ -95,7 +95,7 @@ const SignUpForm = () => {
         </Form>
       </CardContent>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="flex flex-col gap-y-4 p-7">
         <AuthProviderButtons disabled={isPending} />

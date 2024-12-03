@@ -12,7 +12,7 @@ import type { TCreateProjectFormData } from "@/features/projects/core/types";
 import { createProjectSchema } from "@/features/projects/core/validations";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,7 +80,7 @@ const CreateProjectForm = ({ onCancel }: { onCancel?: () => void }) => {
         </CardTitle>
       </CardHeader>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="p-7">
         <Form {...form}>
@@ -169,7 +169,7 @@ const CreateProjectForm = ({ onCancel }: { onCancel?: () => void }) => {
                 )}
               />
             </div>
-            <DottedSeparated className="py-7" />
+            <DottedSeparator className="py-7" />
             <div className="flex justify-between items-center">
               <Button
                 type="button"

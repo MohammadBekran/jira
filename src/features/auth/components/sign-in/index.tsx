@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import SignInForm from "@/features/auth/components/sign-in/sign-in-form";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const SignIn = () => {
@@ -12,11 +12,11 @@ const SignIn = () => {
         <CardTitle className="text-2xl">Welcome back!</CardTitle>
       </CardHeader>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <SignInForm />
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="flex justify-center items-center p-7">
         <p className="text-center">

@@ -14,7 +14,7 @@ import { createTaskSchema } from "@/features/tasks/core/validations";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
 import DatePicker from "@/components/date-picker";
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -85,7 +85,7 @@ const CreateTaskForm = ({
         <CardTitle className="text-xl font-bold">Create a new task</CardTitle>
       </CardHeader>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="p-7">
         <Form {...form}>
@@ -203,7 +203,7 @@ const CreateTaskForm = ({
                 )}
               />
             </div>
-            <DottedSeparated className="py-7" />
+            <DottedSeparator className="py-7" />
             <div className="flex justify-between items-center">
               <Button
                 type="button"

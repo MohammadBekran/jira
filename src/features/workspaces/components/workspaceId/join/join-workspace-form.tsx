@@ -9,7 +9,7 @@ import {
 } from "@/features/workspaces/core/hooks";
 import { useJoinWorkspace } from "@/features/workspaces/core/services/api/mutations.api";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -48,7 +48,7 @@ const JoinWorkspaceForm = ({
         </CardDescription>
       </CardHeader>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="p-7">
         <div className="flex flex-col justify-between items-center gap-2 lg:flex-row">

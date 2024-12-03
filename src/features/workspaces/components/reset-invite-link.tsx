@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 import { useResetInviteCode } from "@/features/workspaces/core/services/api/mutations.api";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -73,7 +73,7 @@ const ResetInviteLink = ({
                 </Button>
               </div>
             </div>
-            <DottedSeparated className="py-7" />
+            <DottedSeparator className="py-7" />
             <Button
               type="button"
               disabled={isPending || isResettingInviteLink}

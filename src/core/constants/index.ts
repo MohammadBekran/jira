@@ -6,7 +6,9 @@ import {
   GoHomeFill,
 } from "react-icons/go";
 
-export const NAVIGATION_ROUTES = [
+import type { TProjectAnalyticsResponseType } from "@/features/projects/core/types";
+
+const NAVIGATION_ROUTES = [
   {
     label: "Home",
     href: "",
@@ -32,3 +34,39 @@ export const NAVIGATION_ROUTES = [
     activeIcon: UsersIcon,
   },
 ] as const;
+
+const ANALYTICS_ITEMS = ({ data }: TProjectAnalyticsResponseType) =>
+  [
+    {
+      title: "Total tasks",
+      value: data?.taskDifference,
+      variant: data?.assignedTaskDifference > 0 ? "up" : "down",
+      increaseValue: data?.assignedTaskDifference,
+    },
+    {
+      title: "Assigned tasks",
+      value: data?.assignedTaskCount,
+      variant: data?.assignedTaskDifference > 0 ? "up" : "down",
+      increaseValue: data?.assignedTaskDifference,
+    },
+    {
+      title: "Completed tasks",
+      value: data?.completedTaskCount,
+      variant: data?.completedTaskCount > 0 ? "up" : "down",
+      increaseValue: data?.completeTaskDifference,
+    },
+    {
+      title: "Overdue tasks",
+      value: data?.overdueTaskCount,
+      variant: data?.overdueTaskDifference > 0 ? "up" : "down",
+      increaseValue: data?.overdueTaskDifference,
+    },
+    {
+      title: "Incomplete tasks",
+      value: data?.incompleteTaskCount,
+      variant: data?.incompleteTaskDifference > 0 ? "up" : "down",
+      increaseValue: data?.incompleteTaskDifference,
+    },
+  ] as const;
+
+export { ANALYTICS_ITEMS, NAVIGATION_ROUTES };

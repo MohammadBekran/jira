@@ -15,7 +15,7 @@ import type {
 } from "@/features/projects/core/types";
 import { updateProjectSchema } from "@/features/projects/core/validations";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -104,7 +104,7 @@ const UpdateProjectForm = ({
           </CardTitle>
         </CardHeader>
         <div className="px-7">
-          <DottedSeparated />
+          <DottedSeparator />
         </div>
         <CardContent className="p-7">
           <Form {...form}>
@@ -193,7 +193,7 @@ const UpdateProjectForm = ({
                   )}
                 />
               </div>
-              <DottedSeparated className="py-7" />
+              <DottedSeparator className="py-7" />
               <div className="flex justify-between items-center">
                 <Button
                   type="button"

@@ -26,7 +26,7 @@ const CustomCalendarToolbar = ({
         <ChevronLeftIcon className="size-4" />
       </Button>
       <div className="w-full h-8 flex justify-center items-center rounded-md border border-input py-2 px-3 lg:w-auto">
-        <CalendarIcon className="size-4 mr-2" />
+        <CalendarIcon className="size-4 " />
         <p className="text-sm">{renderDate}</p>
       </div>
       <Button

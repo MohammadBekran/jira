@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 
 const UserButton = () => {
   const { data: user, isLoading } = useCurrent();
@@ -62,12 +62,12 @@ const UserButton = () => {
             <p className="text-sm text-neutral-500">{email ?? "User"}</p>
           </div>
         </div>
-        <DottedSeparated className="mb-1" />
+        <DottedSeparator className="mb-1" />
         <DropdownMenuItem
           className="h-10 flex justify-center items-center font-medium cursor-pointer text-amber-700"
           onClick={logout}
         >
-          <LogOut className="size-4 mr-2" />
+          <LogOut className="size-4 " />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>

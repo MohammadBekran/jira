@@ -13,7 +13,7 @@ import {
 import { useGetMembers } from "@/features/members/core/services/api/queries.api";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -72,7 +72,7 @@ const MembersList = () => {
         <CardTitle className="text-xl font-bold">Members List</CardTitle>
       </CardHeader>
       <div className="px-7">
-        <DottedSeparated />
+        <DottedSeparator />
       </div>
       <CardContent className="p-7">
         {data?.documents.map((member, index) => (

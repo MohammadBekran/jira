@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { TCSSProperties } from "@/core/types";
 
-interface IDottedSeparatedProps {
+interface IDottedSeparatorProps {
   className?: string;
   color?: string;
   height?: string;
@@ -10,14 +10,14 @@ interface IDottedSeparatedProps {
   direction?: "horizontal" | "vertical";
 }
 
-const DottedSeparated = ({
+const DottedSeparator = ({
   className,
   color = "#d4d4d8",
   height = "2px",
   dotSize = "2px",
   gapSize = "6px",
   direction = "horizontal",
-}: IDottedSeparatedProps) => {
+}: IDottedSeparatorProps) => {
   const isHorizontal = direction === "horizontal";
 
   const separatorStyles: TCSSProperties = {
@@ -26,7 +26,7 @@ const DottedSeparated = ({
     backgroundImage: `radial-gradient(circle, ${color} 25%, transparent 25%)`,
     backgroundSize: isHorizontal
       ? `${parseInt(dotSize) + parseInt(gapSize)}px ${height}`
-      : `${height} ${parseInt(dotSize) + parseInt(gapSize)}}px`,
+      : `${height} ${parseInt(dotSize) + parseInt(gapSize)}px`,
     backgroundRepeat: isHorizontal ? "repeat-x" : "repeat-y",
     backgroundPosition: "center",
   };
@@ -48,4 +48,4 @@ const DottedSeparated = ({
   );
 };
 
-export default DottedSeparated;
+export default DottedSeparator;

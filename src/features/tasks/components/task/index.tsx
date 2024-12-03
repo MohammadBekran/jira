@@ -6,7 +6,7 @@ import TaskDescription from "@/features/tasks/components/task/task-description";
 import { useTaskId } from "@/features/tasks/core/hooks";
 import { useGetTask } from "@/features/tasks/core/services/api/queries.api";
 
-import DottedSeparated from "@/components/dotted-separator";
+import DottedSeparator from "@/components/dotted-separator";
 import PageLoader from "@/components/page-loader";
 import PageError from "@/components/page-error";
 
@@ -21,7 +21,7 @@ const Task = () => {
   return (
     <div className="flex flex-col">
       <TaskBreadcrumbs task={data} project={data.project} />
-      <DottedSeparated className="my-6" />
+      <DottedSeparator className="my-6" />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <TaskOverview data={data} />
         <TaskDescription taskId={data.$id} description={data.description!} />
