@@ -65,11 +65,11 @@ const TaskActions = ({ id, projectId, children }: ITaskActionsProps) => {
             />
             Open Project
           </DropdownMenuItem>
-          <DropdownMenuItem className="font-medium p-[10px]">
-            <PencilIcon
-              className="size-4 stroke-2 mr-2"
-              onClick={() => open(id)}
-            />
+          <DropdownMenuItem
+            className="font-medium p-[10px]"
+            onClick={() => open(id)}
+          >
+            <PencilIcon className="size-4 stroke-2 mr-2" />
             Edit Task
           </DropdownMenuItem>
           <DropdownMenuItem

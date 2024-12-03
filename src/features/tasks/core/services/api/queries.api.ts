@@ -13,7 +13,7 @@ interface IUseGetTasksProps {
   assigneeId?: string | null;
 }
 
-export const useGetTasks = ({
+const useGetTasks = ({
   workspaceId,
   projectId,
   search,
@@ -53,3 +53,24 @@ export const useGetTasks = ({
 
   return query;
 };
+
+const useGetTask = ({ taskId }: { taskId: string }) => {
+  const query = useQuery({
+    queryKey: ["task", taskId],
+    queryFn: async () => {
+      const response = await client.api.tasks[":taskId"]["$get"]({
+        param: { taskId },
+      });
+
+      if (!response.ok) throw new Error("Failed to fetch task");
+
+      const { data } = await response.json();
+
+      return data;
+    },
+  });
+
+  return query;
+};
+
+export { useGetTasks, useGetTask };

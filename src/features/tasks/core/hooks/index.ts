@@ -1,6 +1,5 @@
 import { useParams } from "next/navigation";
 import {
-  parseAsBoolean,
   parseAsString,
   parseAsStringEnum,
   useQueryState,
@@ -16,21 +15,15 @@ const useTaskId = () => {
 };
 
 const useCreateTaskModal = () => {
-  const [isOpen, setIsOpen] = useQueryState(
-    "create-task",
-    parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true })
-  );
+  const [status, setStatus] = useQueryState("create-task");
 
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-
-  return { isOpen, open, close, setIsOpen };
+  return { status, setStatus };
 };
 
 const useUpdateTaskModal = () => {
   const [taskId, setTaskId] = useQueryState("update-task", parseAsString);
 
-  const open = (id: string) => setTaskId(id);
+  const open = (taskId: string) => setTaskId(taskId);
   const close = () => setTaskId(null);
 
   return { taskId, open, close, setTaskId };
@@ -55,9 +48,9 @@ const useTaskFilters = () => {
 };
 
 export {
-  useTaskId,
   useCreateTaskModal,
-  useUpdateTaskModal,
-  useTaskView,
   useTaskFilters,
+  useTaskId,
+  useTaskView,
+  useUpdateTaskModal,
 };

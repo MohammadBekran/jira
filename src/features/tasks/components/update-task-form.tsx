@@ -6,11 +6,9 @@ import { useForm } from "react-hook-form";
 import MemberAvatar from "@/features/members/components/member-avatar";
 import ProjectAvatar from "@/features/projects/components/project-avatar";
 import { TASK_STATUS_OPTIONS } from "@/features/tasks/core/constants";
-import { ETaskStatus } from "@/features/tasks/core/enum";
-import { useCreateTaskModal } from "@/features/tasks/core/hooks";
-import { useCreateTask } from "@/features/tasks/core/services/api/mutations.api";
-import type { TCreateTaskFormData } from "@/features/tasks/core/types";
-import { createTaskSchema } from "@/features/tasks/core/validations";
+import { useUpdateTask } from "@/features/tasks/core/services/api/mutations.api";
+import type { TTask, TUpdateTaskFormData } from "@/features/tasks/core/types";
+import { updateTaskSchema } from "@/features/tasks/core/validations";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
 import DatePicker from "@/components/date-picker";
@@ -35,41 +33,41 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-interface ICreateTaskFormProps {
+interface IUpdateTaskFormProps {
   onCancel?: () => void;
   projectOptions: { id: string; name: string; imageUrl: string }[];
   memberOptions: { id: string; name: string }[];
+  initialValues: TTask;
 }
 
-const CreateTaskForm = ({
+const UpdateTaskForm = ({
   onCancel,
   projectOptions,
   memberOptions,
-}: ICreateTaskFormProps) => {
+  initialValues,
+}: IUpdateTaskFormProps) => {
   const workspaceId = useWorkspaceId();
-  const { status } = useCreateTaskModal();
-  const statuses = TASK_STATUS_OPTIONS.map(
-    (statusOption) => statusOption.value
-  );
-  const form = useForm<TCreateTaskFormData>({
-    resolver: zodResolver(createTaskSchema.omit({ workspaceId: true })),
+  const form = useForm<TUpdateTaskFormData>({
+    resolver: zodResolver(updateTaskSchema.omit({ workspaceId: true })),
     defaultValues: {
-      workspaceId,
-      status: statuses.includes(status as ETaskStatus)
-        ? (status as ETaskStatus)
+      ...initialValues,
+      dueDate: initialValues.dueDate
+        ? new Date(initialValues.dueDate)
         : undefined,
     },
   });
-  const { mutate, isPending } = useCreateTask();
+  const { mutate, isPending } = useUpdateTask();
 
-  const onSubmit = (values: TCreateTaskFormData) => {
+  console.log(form.formState.errors);
+
+  const onSubmit = (values: TUpdateTaskFormData) => {
     const finalValues = {
       ...values,
       workspaceId,
     };
 
     mutate(
-      { json: finalValues },
+      { param: { taskId: initialValues.$id }, json: finalValues },
       {
         onSuccess: () => {
           form.reset();
@@ -82,7 +80,7 @@ const CreateTaskForm = ({
   return (
     <Card className="size-full border-none shadow-none">
       <CardHeader className="flex p-7">
-        <CardTitle className="text-xl font-bold">Create a new task</CardTitle>
+        <CardTitle className="text-xl font-bold">Update a task</CardTitle>
       </CardHeader>
       <div className="px-7">
         <DottedSeparated />
@@ -216,7 +214,7 @@ const CreateTaskForm = ({
                 Cancel
               </Button>
               <Button type="submit" disabled={isPending} size="lg">
-                Create Task
+                Save Changes
               </Button>
             </div>
           </form>
@@ -226,4 +224,4 @@ const CreateTaskForm = ({
   );
 };
 
-export default CreateTaskForm;
+export default UpdateTaskForm;

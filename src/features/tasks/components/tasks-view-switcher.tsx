@@ -3,15 +3,18 @@
 import { Loader, PlusIcon } from "lucide-react";
 
 import DataFilters from "@/features/tasks/components/data-filters";
+import DataKanban from "@/features/tasks/components/data-kanban";
+import DataTable from "@/features/tasks/components/data-table";
+import { TASK_COLUMNS } from "@/features/tasks/core/constants";
 import {
   useCreateTaskModal,
   useTaskFilters,
   useTaskView,
 } from "@/features/tasks/core/hooks";
+import { useBulkUpdateTasks } from "@/features/tasks/core/services/api/mutations.api";
 import { useGetTasks } from "@/features/tasks/core/services/api/queries.api";
-import DataTable from "@/features/tasks/components/data-table";
+import type { TUpdateBulkOnchangeTask } from "@/features/tasks/core/types";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
-import { TASK_COLUMNS } from "@/features/tasks/core/constants";
 
 import DottedSeparated from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
@@ -20,7 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const TasksViewSwitcher = () => {
   const [{ projectId, status, dueDate, assigneeId }] = useTaskFilters();
   const workspaceId = useWorkspaceId();
-  const { open } = useCreateTaskModal();
+  const { setStatus } = useCreateTaskModal();
   const { view, setView } = useTaskView();
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
@@ -29,6 +32,11 @@ const TasksViewSwitcher = () => {
     dueDate,
     assigneeId,
   });
+  const { mutate: bulkUpdate } = useBulkUpdateTasks();
+
+  const onKanbanChange = (tasks: TUpdateBulkOnchangeTask) => {
+    bulkUpdate({ json: { tasks } });
+  };
 
   return (
     <Tabs
@@ -49,7 +57,11 @@ const TasksViewSwitcher = () => {
               Calender
             </TabsTrigger>
           </TabsList>
-          <Button size="sm" className="w-full lg:w-auto" onClick={open}>
+          <Button
+            size="sm"
+            className="w-full lg:w-auto"
+            onClick={() => setStatus(status ?? "true")}
+          >
             <PlusIcon className="size-4 mr-2" />
             New
           </Button>
@@ -67,7 +79,10 @@ const TasksViewSwitcher = () => {
               <DataTable columns={TASK_COLUMNS} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataKanban
+                data={tasks?.documents ?? []}
+                onChange={onKanbanChange}
+              />
             </TabsContent>
             <TabsContent value="calender" className="mt-0">
               {JSON.stringify(tasks)}

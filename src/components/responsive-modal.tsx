@@ -1,13 +1,21 @@
-import { useMedia } from "react-use";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Options } from "nuqs";
+import { useMedia } from "react-use";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 
+type TStringStatusOpenChange = (status: string) => void;
+
+type TBooleanOpenChange = (
+  value: boolean | ((old: boolean) => boolean | null) | null,
+  options?: Options
+) => Promise<URLSearchParams>;
+
 interface IResponsiveModalProps {
   children: React.ReactNode;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  open: string | boolean | null;
+  onOpenChange: TStringStatusOpenChange | TBooleanOpenChange;
 }
 
 const ResponsiveModal = ({
@@ -17,9 +25,19 @@ const ResponsiveModal = ({
 }: IResponsiveModalProps) => {
   const isDesktop = useMedia("(min-width: 1024px)", true);
 
+  const isStringStatusOpenChange = (
+    fn: unknown
+  ): fn is TStringStatusOpenChange =>
+    typeof fn === "function" && fn.length === 1;
+
+  const handleOpenChange = () => {
+    if (isStringStatusOpenChange(onOpenChange)) onOpenChange("");
+    else (onOpenChange as TBooleanOpenChange)(false);
+  };
+
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Dialog open={!!open} onOpenChange={handleOpenChange}>
         <VisuallyHidden asChild>
           <DialogTitle />
         </VisuallyHidden>
@@ -31,7 +49,7 @@ const ResponsiveModal = ({
   }
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
+    <Drawer open={!!open} onOpenChange={handleOpenChange}>
       <DrawerContent>
         <VisuallyHidden asChild>
           <DialogTitle />

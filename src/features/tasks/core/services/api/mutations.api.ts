@@ -12,6 +12,22 @@ type TCreateTaskRequestType = InferRequestType<
   (typeof client.api.tasks)["$post"]
 >;
 
+type TUpdateTaskResponseType = InferResponseType<
+  (typeof client.api.tasks)[":taskId"]["$patch"],
+  200
+>;
+type TUpdateTaskRequestType = InferRequestType<
+  (typeof client.api.tasks)[":taskId"]["$patch"]
+>;
+
+type TBulkUpdateTaskResponseType = InferResponseType<
+  (typeof client.api.tasks)["bulk-update"]["$post"],
+  200
+>;
+type TBulkUpdateTaskRequestType = InferRequestType<
+  (typeof client.api.tasks)["bulk-update"]["$post"]
+>;
+
 type TDeleteTaskResponseType = InferResponseType<
   (typeof client.api.tasks)[":taskId"]["$delete"],
   200
@@ -48,6 +64,68 @@ const useCreateTask = () => {
   return mutation;
 };
 
+const useUpdateTask = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<
+    TUpdateTaskResponseType,
+    Error,
+    TUpdateTaskRequestType
+  >({
+    mutationFn: async ({ param, json }) => {
+      const response = await client.api.tasks[":taskId"]["$patch"]({
+        param,
+        json,
+      });
+
+      if (!response.ok) throw new Error("Failed to update task");
+
+      return await response.json();
+    },
+    onSuccess: ({ data }) => {
+      toast.success("Task updated");
+
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["task", data.$id],
+      });
+    },
+    onError: () => toast.error("Failed to create task"),
+  });
+
+  return mutation;
+};
+
+const useBulkUpdateTasks = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<
+    TBulkUpdateTaskResponseType,
+    Error,
+    TBulkUpdateTaskRequestType
+  >({
+    mutationFn: async ({ json }) => {
+      const response = await client.api.tasks["bulk-update"]["$post"]({ json });
+
+      if (!response.ok) throw new Error("Failed to create task");
+
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast.success("Task updated");
+
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+    },
+    onError: () => toast.error("Failed to update task"),
+  });
+
+  return mutation;
+};
+
 const useDeleteTask = () => {
   const queryClient = useQueryClient();
 
@@ -79,4 +157,4 @@ const useDeleteTask = () => {
   return mutation;
 };
 
-export { useCreateTask, useDeleteTask };
+export { useCreateTask, useUpdateTask, useBulkUpdateTasks, useDeleteTask };

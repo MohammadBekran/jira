@@ -1,5 +1,7 @@
 import "server-only";
 
+import { getCookie } from "hono/cookie";
+import { createMiddleware } from "hono/factory";
 import {
   Account,
   Client,
@@ -11,9 +13,6 @@ import {
   type Storage as TStorage,
   type Users as TUsers,
 } from "node-appwrite";
-
-import { getCookie } from "hono/cookie";
-import { createMiddleware } from "hono/factory";
 
 import { AUTH_COOKIE } from "@/features/auth/core/constants";
 
@@ -35,9 +34,7 @@ const sessionMiddleware = createMiddleware<TAdditionalContext>(
 
     const session = getCookie(c, AUTH_COOKIE);
 
-    if (!session) {
-      return c.json({ error: "UnAuthorized" }, 401);
-    }
+    if (!session) return c.json({ error: "Unauthorized" }, 401);
 
     client.setSession(session);
 

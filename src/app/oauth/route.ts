@@ -19,5 +19,5 @@ export const GET = async (request: NextRequest) => {
     secure: true,
   });
 
-  return NextResponse.redirect(`${request.nextUrl.origin}/account`);
+  return NextResponse.redirect(`${request.nextUrl.origin}/`);
 };

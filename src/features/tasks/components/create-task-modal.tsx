@@ -6,11 +6,13 @@ import { useCreateTaskModal } from "@/features/tasks/core/hooks";
 import ResponsiveModal from "@/components/responsive-modal";
 
 const CreateTaskModal = () => {
-  const { isOpen, setIsOpen, close } = useCreateTaskModal();
+  const { status, setStatus } = useCreateTaskModal();
+
+  const onClose = () => setStatus(null);
 
   return (
-    <ResponsiveModal open={isOpen} onOpenChange={setIsOpen}>
-      <CreateTaskFormWrapper onCancel={close} />
+    <ResponsiveModal open={status ?? null} onOpenChange={setStatus}>
+      <CreateTaskFormWrapper onCancel={onClose} />
     </ResponsiveModal>
   );
 };
