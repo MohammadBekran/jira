@@ -21,10 +21,12 @@ type TUpdateBulkOnchangeTask = {
   status: ETaskStatus;
   position: number;
 }[];
+type TCalendarActions = "PREV" | "NEXT" | "TODAY";
 
 export type {
   TTask,
   TCreateTaskFormData,
   TUpdateTaskFormData,
   TUpdateBulkOnchangeTask,
+  TCalendarActions,
 };

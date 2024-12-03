@@ -6,8 +6,8 @@ import {
 } from "@hello-pangea/dnd";
 import { useCallback, useEffect, useState } from "react";
 
-import KanbanCard from "@/features/tasks/components/kanban-card";
-import KanbanColumnHeader from "@/features/tasks/components/kanban-column-header";
+import KanbanCard from "@/features/tasks/components/data-kanban/kanban-card";
+import KanbanColumnHeader from "@/features/tasks/components/data-kanban/kanban-column-header";
 import { ETaskStatus } from "@/features/tasks/core/enum";
 import type {
   TTask,

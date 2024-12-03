@@ -2,13 +2,25 @@ import { Loader } from "lucide-react";
 
 import { useGetMembers } from "@/features/members/core/services/api/queries.api";
 import { useGetProjects } from "@/features/projects/core/services/api/queries.api";
-import CreateTaskForm from "@/features/tasks/components/create-task-form";
+import UpdateTaskForm from "@/features/tasks/components/update-task/update-task-form";
+import { useGetTask } from "@/features/tasks/core/services/api/queries.api";
 import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
 import { Card, CardContent } from "@/components/ui/card";
 
-const CreateTaskFormWrapper = ({ onCancel }: { onCancel?: () => void }) => {
+interface IUpdateTaskFormWrapperProps {
+  id: string;
+  onCancel?: () => void;
+}
+
+const UpdateTaskFormWrapper = ({
+  id,
+  onCancel,
+}: IUpdateTaskFormWrapperProps) => {
   const workspaceId = useWorkspaceId();
+  const { data: task, isLoading: isLoadingTask } = useGetTask({
+    taskId: id,
+  });
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects({
     workspaceId,
   });
@@ -27,7 +39,7 @@ const CreateTaskFormWrapper = ({ onCancel }: { onCancel?: () => void }) => {
     name: member.name,
   }));
 
-  const isLoading = isLoadingProjects || isLoadingMembers;
+  const isLoading = isLoadingProjects || isLoadingMembers || isLoadingTask;
 
   if (isLoading) {
     return (
@@ -40,12 +52,13 @@ const CreateTaskFormWrapper = ({ onCancel }: { onCancel?: () => void }) => {
   }
 
   return (
-    <CreateTaskForm
+    <UpdateTaskForm
       onCancel={onCancel}
       projectOptions={projectOptions ?? []}
       memberOptions={memberOptions ?? []}
+      initialValues={task!}
     />
   );
 };
 
-export default CreateTaskFormWrapper;
+export default UpdateTaskFormWrapper;

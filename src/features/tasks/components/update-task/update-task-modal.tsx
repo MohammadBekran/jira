@@ -1,6 +1,6 @@
 "use client";
 
-import UpdateTaskFormWrapper from "@/features/tasks/components/update-task-form-wrapper";
+import UpdateTaskFormWrapper from "@/features/tasks/components/update-task/update-task-form-wrapper";
 import { useUpdateTaskModal } from "@/features/tasks/core/hooks";
 
 import ResponsiveModal from "@/components/responsive-modal";

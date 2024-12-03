@@ -2,6 +2,8 @@
 
 import { Loader, PlusIcon } from "lucide-react";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DataCalendar from "@/features/tasks/components/data-calendar";
 import DataFilters from "@/features/tasks/components/data-filters";
 import DataKanban from "@/features/tasks/components/data-kanban";
 import DataTable from "@/features/tasks/components/data-table";
@@ -18,7 +20,6 @@ import { useWorkspaceId } from "@/features/workspaces/core/hooks";
 
 import DottedSeparated from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const TasksViewSwitcher = () => {
   const [{ projectId, status, dueDate, assigneeId }] = useTaskFilters();
@@ -85,7 +86,7 @@ const TasksViewSwitcher = () => {
               />
             </TabsContent>
             <TabsContent value="calender" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
