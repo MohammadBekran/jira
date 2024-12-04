@@ -17,6 +17,7 @@ import {
   DATABASE_ID,
   IMAGES_BUCKET_ID,
   MEMBERS_ID,
+  PROJECTS_ID,
   TASKS_ID,
   WORKSPACES_ID,
 } from "@/core/configs";
@@ -184,7 +185,41 @@ const app = new Hono()
 
     if (!workspace) return c.json({ error: "Invalid workspace" }, 404);
 
-    // TODO: Delete members, projects, & tasks
+    const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
+      Query.equal("workspaceId", workspaceId),
+    ]);
+
+    if (members) {
+      Promise.all(
+        members.documents.map(async (member) => {
+          await databases.deleteDocument(DATABASE_ID, MEMBERS_ID, member.$id);
+        })
+      );
+    }
+
+    const projects = await databases.listDocuments(DATABASE_ID, PROJECTS_ID, [
+      Query.equal("workspaceId", workspaceId),
+    ]);
+
+    if (projects) {
+      Promise.all(
+        projects.documents.map(async (project) => {
+          await databases.deleteDocument(DATABASE_ID, PROJECTS_ID, project.$id);
+        })
+      );
+    }
+
+    const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, [
+      Query.equal("workspaceId", workspace.$id),
+    ]);
+
+    if (tasks) {
+      Promise.all(
+        tasks.documents.map(async (task) => {
+          await databases.deleteDocument(DATABASE_ID, TASKS_ID, task.$id);
+        })
+      );
+    }
 
     await databases.deleteDocument(DATABASE_ID, WORKSPACES_ID, workspace.$id);
 

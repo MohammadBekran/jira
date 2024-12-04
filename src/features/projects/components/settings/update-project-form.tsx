@@ -85,6 +85,7 @@ const UpdateProjectForm = ({
       {
         onSuccess: ({ data }) => {
           form.reset();
+          router.refresh();
           router.push(`/workspaces/${data.$id}/projects/${data.$id}`);
         },
       }

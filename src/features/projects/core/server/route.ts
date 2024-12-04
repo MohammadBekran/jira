@@ -232,7 +232,17 @@ const app = new Hono()
 
     if (!project) return c.json({ error: "Invalid project" }, 404);
 
-    // TODO: Delete tasks
+    const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, [
+      Query.equal("projectId", project.$id),
+    ]);
+
+    if (tasks) {
+      Promise.all(
+        tasks.documents.map(async (task) => {
+          await databases.deleteDocument(DATABASE_ID, TASKS_ID, task.$id);
+        })
+      );
+    }
 
     await databases.deleteDocument(DATABASE_ID, PROJECTS_ID, project.$id);
 
