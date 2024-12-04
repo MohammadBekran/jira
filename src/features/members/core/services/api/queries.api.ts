@@ -4,7 +4,7 @@ import client from "@/lib/rpc";
 
 export const useGetMembers = ({ workspaceId }: { workspaceId: string }) => {
   const query = useQuery({
-    queryKey: ["members"],
+    queryKey: ["members", workspaceId],
     queryFn: async () => {
       const response = await client.api.members.$get({
         query: { workspaceId },
