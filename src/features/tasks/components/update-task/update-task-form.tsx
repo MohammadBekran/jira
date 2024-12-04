@@ -71,6 +71,7 @@ const UpdateTaskForm = ({
       {
         onSuccess: () => {
           form.reset();
+
           onCancel?.();
         },
       }

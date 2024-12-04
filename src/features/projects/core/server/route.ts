@@ -187,7 +187,7 @@ const app = new Hono()
 
       if (!project) return c.json({ error: "Project not found" }, 404);
 
-      const updatedProject = await databases.updateDocument(
+      const updatedProject = await databases.updateDocument<TProject>(
         DATABASE_ID,
         PROJECTS_ID,
         project.$id,

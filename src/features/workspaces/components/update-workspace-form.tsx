@@ -82,6 +82,7 @@ const UpdateWorkspaceForm = ({
       {
         onSuccess: ({ data }) => {
           form.reset();
+
           router.push(`/workspaces/${data.$id}`);
         },
       }

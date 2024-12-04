@@ -63,6 +63,7 @@ const CreateWorkspaceForm = ({ onCancel }: { onCancel?: () => void }) => {
       {
         onSuccess: ({ data }) => {
           form.reset();
+          
           router.push(`/workspaces/${data.$id}`);
         },
       }
