@@ -51,11 +51,11 @@ const TaskActions = ({ id, projectId, children }: ITaskActionsProps) => {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuItem className="font-medium p-[10px]">
-            <ExternalLinkIcon
-              className="size-4 stroke-2 "
-              onClick={onOpenTask}
-            />
+          <DropdownMenuItem
+            className="font-medium p-[10px]"
+            onClick={onOpenTask}
+          >
+            <ExternalLinkIcon className="size-4 stroke-2 " />
             Task Details
           </DropdownMenuItem>
           <DropdownMenuItem

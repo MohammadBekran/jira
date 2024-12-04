@@ -54,9 +54,6 @@ const ProjectList = ({ data, total }: IProjectListProps) => {
           No projects found
         </li>
       </ul>
-      <Button variant="muted" className="w-full mt-4" asChild>
-        <Link href={`/workspaces/${workspaceId}/projects`}>Show All</Link>
-      </Button>
     </div>
   );
 };

@@ -122,15 +122,13 @@ const app = new Hono()
 
       if (!member) return c.json({ error: "Unauthorized" }, 401);
 
-      if (
-        member.id === memberToUpdate.$id &&
-        member.role !== TMemberRole.ADMIN
-      ) {
+      if (member.role !== TMemberRole.ADMIN) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      if (allMembersInWorkspace.total === 1)
+      if (allMembersInWorkspace.total === 1) {
         return c.json({ error: "Cannot downgrade the only member" }, 400);
+      }
 
       await databases.updateDocument(DATABASE_ID, MEMBERS_ID, memberId, {
         role,

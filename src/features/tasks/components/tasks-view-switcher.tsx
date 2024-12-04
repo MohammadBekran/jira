@@ -3,6 +3,7 @@
 import { Loader, PlusIcon } from "lucide-react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useProjectId } from "@/features/projects/core/hooks";
 import DataCalendar from "@/features/tasks/components/data-calendar";
 import DataFilters from "@/features/tasks/components/data-filters";
 import DataKanban from "@/features/tasks/components/data-kanban";
@@ -28,11 +29,12 @@ const TasksViewSwitcher = ({
 }) => {
   const [{ projectId, status, dueDate, assigneeId }] = useTaskFilters();
   const workspaceId = useWorkspaceId();
+  const projectIdParam = useProjectId();
   const { setStatus } = useCreateTaskModal();
   const { view, setView } = useTaskView();
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: projectIdParam || projectId,
     status,
     dueDate,
     assigneeId,

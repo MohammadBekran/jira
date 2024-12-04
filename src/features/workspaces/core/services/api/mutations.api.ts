@@ -29,11 +29,11 @@ type TDeleteWorkspaceRequestType = InferRequestType<
 >;
 
 type TResetInviteCodeResponseType = InferResponseType<
-  (typeof client.api.workspaces)[":workspaceId"]["rest-invite-code"]["$post"],
+  (typeof client.api.workspaces)[":workspaceId"]["reset-invite-code"]["$post"],
   200
 >;
 type TResetInviteCodeRequestType = InferRequestType<
-  (typeof client.api.workspaces)[":workspaceId"]["rest-invite-code"]["$post"]
+  (typeof client.api.workspaces)[":workspaceId"]["reset-invite-code"]["$post"]
 >;
 
 type TJoinWorkspaceResponseType = InferResponseType<
@@ -149,7 +149,7 @@ const useResetInviteCode = () => {
   >({
     mutationFn: async ({ param }) => {
       const response = await client.api.workspaces[":workspaceId"][
-        "rest-invite-code"
+        "reset-invite-code"
       ]["$post"]({
         param,
       });
